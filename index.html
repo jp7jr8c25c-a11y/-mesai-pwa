@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0d141c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Mesai">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="app.css">
+  <title>Mesai</title>
+</head>
+<body>
+  <main id="app">
+    <header class="topbar">
+      <div class="brand-wrap">
+        <img class="app-icon" src="icons/icon-192.png" alt="">
+        <div><h1>Mesai</h1><p id="personLabel">Ali Erkonak</p></div>
+      </div>
+      <span class="local-badge">Bu iPhone’da</span>
+    </header>
+
+    <section id="summaryView" class="view">
+      <div class="period-bar card-lite">
+        <button id="prevPeriod" class="icon-btn" aria-label="Önceki dönem">‹</button>
+        <div><span class="eyebrow">MESAİ DÖNEMİ</span><strong id="periodLabel">—</strong></div>
+        <button id="nextPeriod" class="icon-btn" aria-label="Sonraki dönem">›</button>
+      </div>
+
+      <section class="hero-card">
+        <span class="eyebrow hero-eyebrow">TOPLAM FAZLA MESAİ</span>
+        <div class="hero-value"><strong id="totalHours">0</strong><span>saat</span></div>
+        <div class="hero-foot"><span id="recordCount">0 kayıt</span><span>Yerel kayıt</span></div>
+      </section>
+
+      <div class="section-head"><div><span class="eyebrow">DÖNEM KAZANCIM</span><h2>Maaş özeti</h2></div><button id="editSalary" class="link-btn">Düzenle</button></div>
+      <section class="salary-grid">
+        <button class="salary-card" data-open-salary><span>Aylık maaşım</span><strong id="baseSalary">Girilmedi</strong></button>
+        <button class="salary-card" data-open-salary><span>Mesai ücretim</span><strong id="overtimePay">—</strong></button>
+        <button class="salary-card total" data-open-salary><span>Mesaili maaşım<small>Tahmini toplam</small></span><strong id="combinedSalary">—</strong></button>
+      </section>
+
+      <button id="newEntry" class="primary big">＋ Yeni mesai kaydı</button>
+      <div class="action-row"><button id="exportExcel" class="secondary">Excel</button><button id="openSettings" class="secondary">Ayarlar</button></div>
+
+      <div id="setupNotice" class="notice" hidden><strong>İlk kullanım</strong><span>Hesaplama ayarlarını bir kez kontrol et.</span><button id="reviewSettings">Kontrol et</button></div>
+
+      <div class="section-head records-head"><div><span class="eyebrow">KAYITLAR</span><h2>Dönem kayıtları</h2></div><span id="recordsHint" class="muted">—</span></div>
+      <div id="records" class="records"></div>
+
+      <section class="files-card">
+        <div><span class="eyebrow">DOSYALAR YEDEĞİ</span><h3>iPhone’umda › Mesai</h3><p>Uygulama kayıtları bu cihazda tutulur. Yedek ve Excel dosyalarını istediğin zaman Dosyalar’a kaydet.</p></div>
+        <div class="action-row"><button id="backupBtn" class="secondary">Yedek al</button><button id="restoreBtn" class="secondary">Yedekten yükle</button></div>
+        <p id="backupStatus" class="muted tiny">Henüz yedek alınmadı.</p>
+      </section>
+    </section>
+
+    <section id="settingsView" class="view" hidden>
+      <div class="page-title"><button class="back-btn" data-back>‹</button><div><span class="eyebrow">AYARLAR</span><h2>Hesaplama ve profil</h2></div></div>
+      <form id="settingsForm">
+        <section class="form-card"><h3>Profil ve dönem</h3><label>Ad soyad<input name="person" maxlength="80" required></label><label>Dönem başlangıç günü<input name="periodDay" type="number" min="1" max="28" required></label><p class="hint">Örneğin 21 seçilirse dönem 21’inden sonraki ayın 20’sine kadardır.</p></section>
+        <section class="form-card"><h3>Mesai hesabı</h3><label>Hafta içi normal çalışma (saat)<input name="normalHours" type="number" min="0" max="24" step="0.25" required></label><div class="grid2"><label>Hafta içi yemek (dk.)<input name="weekdayBreak" type="number" min="0" max="240" required></label><label>Cumartesi yemek (dk.)<input name="satBreak" type="number" min="0" max="240" required></label><label>Pazar yemek (dk.)<input name="sunBreak" type="number" min="0" max="240" required></label><label>Resmî tatil yemek (dk.)<input name="holidayBreak" type="number" min="0" max="240" required></label></div><p class="hint">Hafta içi: normal çalışma + yemek + fazla çalışma başladıysa 60 dk ekstra kesinti. Hafta sonu/tatilde normal çalışma ve ekstra kesinti yoktur. “Yedim / Yemedim” yalnızca rapor bilgisidir.</p></section>
+        <section class="form-card"><h3>Yeni dönem ücretleri</h3><label>Aylık maaş (₺)<input name="salary" type="number" min="0" step="0.01" required></label><label>Saatlik ücret bölücüsü<input name="divisor" type="number" min="1" step="0.01" required></label><div class="grid2"><label>Hafta içi katsayısı<input name="weekdayRate" type="number" min="0" step="0.05" required></label><label>Cumartesi katsayısı<input name="satRate" type="number" min="0" step="0.05" required></label><label>Pazar katsayısı<input name="sunRate" type="number" min="0" step="0.05" required></label><label>Tatil katsayısı<input name="holidayRate" type="number" min="0" step="0.05" required></label></div></section>
+        <button class="primary big" type="submit">Ayarları kaydet</button>
+      </form>
+      <section class="files-card"><h3>Veri yönetimi</h3><p>Dosyalar yedeği JSON formatındadır ve eski Scriptable yedeğini de içe aktarabilir.</p><div class="action-row"><button id="settingsBackup" class="secondary">Yedek al</button><button id="settingsRestore" class="secondary">Yedekten yükle</button></div></section>
+      <p class="footer">Mesai PWA v2.0.0 · Geliştirici Ali Erkonak</p>
+    </section>
+  </main>
+
+  <dialog id="entryDialog">
+    <form id="entryForm" method="dialog">
+      <div class="dialog-head"><div><span class="eyebrow" id="entryEyebrow">YENİ KAYIT</span><h2 id="entryTitle">Mesai ekle</h2></div><button type="button" class="close-btn" data-close="entryDialog">×</button></div>
+      <section class="form-card compact"><h3>Çalışma zamanı</h3><label>Tarih<input name="date" type="date" required></label><div class="grid2"><label>İşe giriş<input name="start" type="time" required></label><label>İş çıkış<input name="end" type="time" required></label></div></section>
+      <section class="form-card compact"><h3>Çalışma türü</h3><label class="toggle-line"><span>Çıkış ertesi gün<small>Gece çalışması</small></span><input name="overnight" type="checkbox"></label><label class="toggle-line"><span>Resmî tatil<small>Tatil katsayısı uygulanır</small></span><input name="holiday" type="checkbox"></label><label>Yemek<select name="ate"><option value="yes">Yedim</option><option value="no">Yemedim</option></select></label><p class="hint">Yemek seçimi rapor bilgisidir; kesinti ayarlardaki kurala göre hesaplanır.</p></section>
+      <section class="form-card compact"><h3>İş bilgisi</h3><label>Proje / Milestone<input name="milestone" maxlength="100" placeholder="Opsiyonel"></label><label>Açıklama<textarea name="note" maxlength="1000" rows="3" placeholder="Opsiyonel not"></textarea></label></section>
+      <section id="calcPreview" class="calc-preview"></section>
+      <button class="primary big" type="submit" value="default">Mesaiyi kaydet</button>
+      <button id="deleteEntry" class="danger-btn" type="button" hidden>Kaydı sil</button>
+    </form>
+  </dialog>
+
+  <dialog id="salaryDialog">
+    <form id="salaryForm" method="dialog">
+      <div class="dialog-head"><div><span class="eyebrow">DÖNEM MAAŞI</span><h2 id="salaryPeriod">—</h2></div><button type="button" class="close-btn" data-close="salaryDialog">×</button></div>
+      <section class="form-card compact"><label>Aylık maaş (₺)<input name="salary" type="number" min="0" step="0.01" required></label><label>Saatlik ücret bölücüsü<input name="divisor" type="number" min="1" step="0.01" required></label><div class="grid2"><label>Hafta içi katsayısı<input name="weekdayRate" type="number" min="0" step="0.05" required></label><label>Cumartesi katsayısı<input name="satRate" type="number" min="0" step="0.05" required></label><label>Pazar katsayısı<input name="sunRate" type="number" min="0" step="0.05" required></label><label>Tatil katsayısı<input name="holidayRate" type="number" min="0" step="0.05" required></label></div></section>
+      <button class="primary big" type="submit" value="default">Dönem maaşını kaydet</button>
+    </form>
+  </dialog>
+
+  <input id="restoreFile" type="file" accept="application/json,.json" hidden>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>
