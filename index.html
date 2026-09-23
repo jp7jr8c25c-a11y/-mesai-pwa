@@ -9,15 +9,16 @@
   <meta name="apple-mobile-web-app-title" content="Mesai">
   <meta name="format-detection" content="telephone=no">
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="fix.css">
   <title>Mesai</title>
 </head>
 <body>
   <main id="app">
     <header class="topbar">
       <div class="brand-wrap">
-        <img class="app-icon" src="icons/icon-192.png" alt="">
+        <img class="app-icon" src="icon-192.png" alt="">
         <div><h1>Mesai</h1><p id="personLabel">Ali Erkonak</p></div>
       </div>
       <span class="local-badge">Bu iPhone’da</span>
@@ -67,7 +68,7 @@
         <button class="primary big" type="submit">Ayarları kaydet</button>
       </form>
       <section class="files-card"><h3>Veri yönetimi</h3><p>Dosyalar yedeği JSON formatındadır ve eski Scriptable yedeğini de içe aktarabilir.</p><div class="action-row"><button id="settingsBackup" class="secondary">Yedek al</button><button id="settingsRestore" class="secondary">Yedekten yükle</button></div></section>
-      <p class="footer">Mesai PWA v2.0.0 · Geliştirici Ali Erkonak</p>
+      <p class="footer">Mesai PWA v2.0.1 · Geliştirici Ali Erkonak</p>
     </section>
   </main>
 
@@ -94,5 +95,6 @@
   <input id="restoreFile" type="file" accept="application/json,.json" hidden>
   <div id="toast" role="status" aria-live="polite" hidden></div>
   <script src="app.js"></script>
+  <script src="fix.js"></script>
 </body>
 </html>

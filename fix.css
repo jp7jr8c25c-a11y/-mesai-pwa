@@ -1,0 +1,34 @@
+
+/* v2.0.1 – iPhone responsive alignment patch */
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+#app,.view,.topbar,.period-bar,.hero-card,.salary-grid,.salary-card,.action-row,.notice,.section-head,.records,.record-card,.files-card,.form-card,.grid2,dialog,dialog form{min-width:0;max-width:100%}
+.brand-wrap,.brand-wrap>div,.section-head>div,.record-main,.record-right,.salary-card span,.salary-card strong,.notice span,.notice strong{min-width:0}
+.salary-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.salary-card,.primary,.secondary,.action-row>button{width:100%}
+.salary-card strong,.record-main strong,.record-main span,.files-card p,.hint{overflow-wrap:anywhere;word-break:normal}
+.salary-card.total{gap:12px}
+.record-card{grid-template-columns:minmax(0,1fr) auto}
+.grid2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.grid2>label{min-width:0}
+.period-bar{grid-template-columns:44px minmax(0,1fr) 44px}
+.period-bar>div{min-width:0}
+.period-bar strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.notice{grid-template-columns:minmax(0,1fr) auto}
+dialog{max-width:calc(100vw - 18px);margin:auto}
+@media(max-width:430px){
+  #app{padding-left:16px;padding-right:16px}
+  .salary-card{padding:14px}
+  .salary-card strong{font-size:17px}
+  .salary-card.total strong{font-size:22px;flex:0 0 auto}
+  .record-card{gap:8px;padding:13px}
+  .record-right strong{font-size:16px}
+  .period-bar{grid-template-columns:40px minmax(0,1fr) 40px}
+  .period-bar strong{font-size:14px}
+  .section-head{gap:8px}
+}
+@media(max-width:350px){
+  .salary-grid,.action-row,.grid2{grid-template-columns:1fr}
+  .salary-card.total{grid-column:1}
+  .notice{grid-template-columns:1fr}
+  .notice button{grid-row:auto;grid-column:auto;text-align:left;padding:8px 0 0}
+}
