@@ -1,5 +1,5 @@
 
-/* v2.0.1 – iPhone responsive alignment patch */
+/* v2.0.2 – iPhone responsive alignment + native input overflow patch */
 html,body{width:100%;max-width:100%;overflow-x:hidden}
 #app,.view,.topbar,.period-bar,.hero-card,.salary-grid,.salary-card,.action-row,.notice,.section-head,.records,.record-card,.files-card,.form-card,.grid2,dialog,dialog form{min-width:0;max-width:100%}
 .brand-wrap,.brand-wrap>div,.section-head>div,.record-main,.record-right,.salary-card span,.salary-card strong,.notice span,.notice strong{min-width:0}
@@ -32,3 +32,30 @@ dialog{max-width:calc(100vw - 18px);margin:auto}
   .notice{grid-template-columns:1fr}
   .notice button{grid-row:auto;grid-column:auto;text-align:left;padding:8px 0 0}
 }
+
+
+/* iOS Safari date/time/select controls can keep an intrinsic minimum width.
+   Force every form control to stay inside its card/grid cell. */
+dialog, dialog form, .form-card, .form-card.compact, .grid2, .grid2>label { overflow-x:hidden; }
+.form-card label, .grid2>label { width:100%; max-width:100%; min-width:0 !important; }
+.form-card input,
+.form-card textarea,
+.form-card select,
+dialog input,
+dialog textarea,
+dialog select {
+  display:block;
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  min-inline-size:0 !important;
+  box-sizing:border-box !important;
+}
+input[type="date"], input[type="time"] {
+  -webkit-appearance:none;
+  appearance:none;
+  min-width:0 !important;
+  min-inline-size:0 !important;
+}
+#entryForm .grid2 { width:100%; max-width:100%; }
+#entryForm .grid2>* { width:100%; max-width:100%; min-width:0 !important; }
